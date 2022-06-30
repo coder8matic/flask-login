@@ -36,7 +36,7 @@ def login():
             return "Wrong username/password!"
 
 
-@app.route('/register', methods=["GET", "POST"])  # http://localhost(/) M <-- V <-- View (HTML)  C <- COntroller
+@app.route('/register', methods=["GET", "POST"])
 def register():
     if request.method == "GET":
         return render_template("register.html")
@@ -44,10 +44,11 @@ def register():
         email = request.form.get("email")
         password = request.form.get("password")
 
-        newUser = User(email=email, password=hashlib.sha256(password.encode()).hexdigest())
+        newUser = User(email=email, password=hashlib
+                       .sha256(password.encode()).hexdigest())
         db.add(newUser)
         db.commit()
-        return "Sučes"
+        return "Succes"
 
 
 if __name__ == '__main__':
