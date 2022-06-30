@@ -9,12 +9,17 @@ app = Flask(__name__)
 
 # db.create_all()
 
-@app.route('/', methods=["GET"])  # http://localhost(/) M <-- V <-- View (HTML)  C <- COntroller
+@app.route('/', methods=["GET"])  # http://localhost(/)
 def index():
     return render_template("index.html")
 
 
-@app.route('/login', methods=["POST"])  # http://localhost(/) M <-- V <-- View (HTML)  C <- COntroller
+@app.route('/dashboard', methods=["GET"])
+def dashboard():
+    return render_template("dashboard.html")
+
+
+@app.route('/login', methods=["POST"])
 def login():
     email = request.form.get("email")
     password = request.form.get("password")
