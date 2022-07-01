@@ -7,72 +7,82 @@ from models.settings import db
 import uuid
 
 app = Flask(__name__)
+app_name = "myApp"
 
 
-@app.route('/', methods=["GET"])  # http://localhost(/) M <-- V <-- View (HTML)  C <- COntroller
+@app.route('/', methods=["GET"])
 def index():
-    return render_template("index.html")
+    return redirectToRoute("dashboard") if isLoggedIn() \
+                                        else redirectToRoute("login")
 
 
-@app.route('/login', methods=["POST"])  # http://localhost(/) M <-- V <-- View (HTML)  C <- COntroller
+@app.route('/login', methods=["GET", "POST"])
 def login():
-    email = request.form.get("email")
-    password = request.form.get("password")
-
-    tryUser = db.query(User).filter_by(email=email).first()
-
-    if not tryUser:
-        return "This user does not exist - try registration on /register"
-    else:
-        tryPassword = hashlib.sha256(password.encode()).hexdigest()
-        # print(tryUser)
-        # exit()
-        if tryPassword == tryUser.password:
-            # tryUser.session_token = uuid.uuid4()
-            # db.commit(tryUser) { session_token : "token" }
-            # db.query(User).filter_by(email=email).update(dict(session_token=uuid.uuid4().__str__()))
-            # db.commit()
-
-            tryUser.session_token = uuid.uuid4().__str__()
-            db.add(tryUser)
-            db.commit()
-
-            response = make_response(redirect(url_for("dashboard")))
-            # print(response)
-            # exit()
-            response.set_cookie("session_token", tryUser.session_token, httponly=True, samesite='Strict')
-
-            return response
-        else:
-            return "Wrong username/password!"
-
-
-@app.route('/register', methods=["GET", "POST"])  # http://localhost(/) M <-- V <-- View (HTML)  C <- Controller
-def register():
     if request.method == "GET":
-        url = request.url_rule
-        return render_template("register.html", url=url)
+        return render_template("login.html", app_name=app_name)
     elif request.method == "POST":
         email = request.form.get("email")
         password = request.form.get("password")
 
-        newUser = User(email=email, password=hashlib.sha256(password.encode()).hexdigest())
+        tryUser = db.query(User).filter_by(email=email).first()
+
+        if not tryUser:
+            return "This user does not exist - try registration on /register"
+        else:
+            tryPassword = hashlib.sha256(password.encode()).hexdigest()
+            # print(tryUser)
+            # exit()
+            if tryPassword == tryUser.password:
+                # tryUser.session_token = uuid.uuid4()
+                # db.commit(tryUser) { session_token : "token" }
+                # db.query(User).filter_by(email=email).update(dict(session_token=uuid.uuid4().__str__()))
+                # db.commit()
+
+                tryUser.session_token = uuid.uuid4().__str__()
+                db.add(tryUser)
+                db.commit()
+
+                response = make_response(redirect(url_for("dashboard")))
+                # print(response)
+                # exit()
+                response.set_cookie("session_token", tryUser.session_token,
+                                    httponly=True, samesite='Strict')
+
+                return response
+            else:
+                return "Wrong username/password!"
+
+
+@app.route('/register', methods=["GET", "POST"])
+def register():
+    if request.method == "GET":
+        url = request.url_rule
+        return render_template("register.html", app_name=app_name, url=url)
+    elif request.method == "POST":
+        email = request.form.get("email")
+        password = request.form.get("password")
+
+        newUser = User(email=email, password=hashlib.sha256(password.encode())
+                       .hexdigest())
         db.add(newUser)
         db.commit()
-        return "Sučes"
+        return "You have been registered"
 
 
-@app.route('/dashboard', methods=["GET"])  # http://localhost(/) M <-- V <-- View (HTML)  C <- Controller
+@app.route('/dashboard', methods=["GET"])
 def dashboard():
     if isLoggedIn():
-        return render_template("dashboard.html", user=getCurrentUser(), posts=db.query(Post).all())
+        return render_template("dashboard.html", app_name=app_name,
+                               user=getCurrentUser(), posts=db.query(Post)
+                               .all())
     else:
         return redirectToLogin()
 
 
 @app.route('/post-add-form', methods=["GET"])
 def post_form():
-    return render_template("post_add_form.html") if isLoggedIn() else redirectToLogin()
+    return render_template("post_add_form.html", app_name=app_name) \
+        if isLoggedIn() else redirectToLogin()
 
 
 @app.route('/post/<id>', methods=["GET", "DELETE", "POST"])
