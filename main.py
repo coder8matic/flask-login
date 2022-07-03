@@ -65,20 +65,35 @@ def dashboard():
     if isLoggedIn():
         return render_template("dashboard.html", app_name=app_name,
                                user=getCurrentUser(), posts=db.query(Post)
-                               .all())
+                               .filter_by(deleted=False).all())
     else:
         return redirectToLogin()
 
 
-@app.route('/post-form', methods=["GET"])
-def post_form():
-    return render_template("post_add_form.html", app_name=app_name) \
-        if isLoggedIn() else redirectToLogin()
+# @app.route('/post-form', methods=["GET"])
+# def post_form():
+#     return render_template("post_add_form.html", app_name=app_name) \
+#         if isLoggedIn() else redirectToLogin()
+
+@app.route('/post', methods=["GET", "POST"])
+def createPost():
+    if request.method == "GET":
+        return render_template("post_new.html", app_name=app_name) \
+            if isLoggedIn() else redirectToLogin()
+    elif request.method == "POST":
+        title = request.form.get('title')
+        description = request.form.get('description')
+        author = getCurrentUser()
+
+        Post.create(title=title, description=description, author=author)
+
+        return redirectToRoute("dashboard")
 
 
-@app.route('/post/<post_id>', methods=["GET", "DELETE", "POST"])
+@app.route('/post/<post_id>', methods=["GET", "POST"])
 def handlePost(post_id):
     if request.method == "GET":
+        print("get method")
         handlePost = db.query(Post).filter_by(id=post_id).first()
         return render_template("post.html", app_name=app_name,
                                post_id=handlePost.id, title=handlePost.title,
@@ -86,8 +101,8 @@ def handlePost(post_id):
             if isLoggedIn() else redirectToLogin()
 
     elif request.method == "POST":
-        print(str(post_id) + "#100")
         if post_id is None:
+            print("Post id is None")
             title = request.form.get('title')
             description = request.form.get('description')
             author = getCurrentUser()
@@ -105,16 +120,16 @@ def handlePost(post_id):
             return redirectToRoute("dashboard")
 
     elif request.method == "DELETE":
-        return "NOT IMPLEMENTED"
+        print("delete method")
+        id = post_id
+        print(id)
+        Post.delete(id=id)
 
 
-@app.route('/post', methods=["POST"])
-def createPost():
-    title = request.form.get('title')
-    description = request.form.get('description')
-    author = getCurrentUser()
-
-    Post.create(title=title, description=description, author=author)
+@app.route('/post/delete/<post_id>', methods=["POST"])
+def deletePost(post_id):
+    id = post_id
+    Post.delete(id=id)
 
     return redirectToRoute("dashboard")
 
