@@ -1,9 +1,12 @@
-{% extends "layout/loggedout.html" %}
+{% extends "layouts/loggedout.html" %}
 {% block content %}
 <div class="card">
     <div class="card-body bg-light">
         <div class="card-title">
-            Welcome to app, {{user.email}}!
+            <div class="row">
+                <div class="col">Welcome to app, {{user.email}}!</div>
+                <div class="col d-grid gap-2 d-md-flex justify-content-md-end"><a class="btn btn-primary" href="/post-form">+</a></div>
+            </div>
         </div>
         <div class="card-text">
             <table class="table table-hover">
@@ -22,9 +25,16 @@
                     <td>{{post.title}}</td>
                     <td>{{post.author.email}}</td>
                     <td>{{post.created_at}}</td>
+                    <td>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="/post/{{post.id}}" class="btn btn-outline-primary">Edit</a>
+                            <a href="/post-form" class="btn btn-outline-danger">Delete</a>
+                        </div>
+                    </td>
                 </tr>
                 {% endfor %}
                 </tbody>
+            
             </table>
         </div>
     </div>

@@ -6,7 +6,11 @@
             Add new post
         </div>
         <div class="card-text">
-            <form action="/post" method="post">
+            <form action="/post/{{post_id}}" method="post">
+                <!-- <div class="col-auto">
+                    <label for="post_id_label" class="form-label">Id: </label>
+                    <label for="post_id" class="form-label" id="post_id" name="post_id">{{ post_id }}</label>
+                </div> -->
                 <div class="col-auto">
                     <label for="title" class="form-label">Title</label>
                     <input type="text" class="form-control" id="title" name="title" value="{{ title }}" required>
