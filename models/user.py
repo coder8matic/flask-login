@@ -8,5 +8,4 @@ class User(db.Model):
     password = db.Column(db.String)
     session_token = db.Column(db.String)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow)
-
+    updated_at = db.Column(db.DateTime)

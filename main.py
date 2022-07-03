@@ -30,21 +30,12 @@ def login():
             return "This user does not exist - try registration on /register"
         else:
             tryPassword = hashlib.sha256(password.encode()).hexdigest()
-            # print(tryUser)
-            # exit()
             if tryPassword == tryUser.password:
-                # tryUser.session_token = uuid.uuid4()
-                # db.commit(tryUser) { session_token : "token" }
-                # db.query(User).filter_by(email=email).update(dict(session_token=uuid.uuid4().__str__()))
-                # db.commit()
-
                 tryUser.session_token = uuid.uuid4().__str__()
                 db.add(tryUser)
                 db.commit()
 
                 response = make_response(redirect(url_for("dashboard")))
-                # print(response)
-                # exit()
                 response.set_cookie("session_token", tryUser.session_token,
                                     httponly=True, samesite='Strict')
 
@@ -79,15 +70,42 @@ def dashboard():
         return redirectToLogin()
 
 
-@app.route('/post-add-form', methods=["GET"])
+@app.route('/post-form', methods=["GET"])
 def post_form():
     return render_template("post_add_form.html", app_name=app_name) \
         if isLoggedIn() else redirectToLogin()
 
 
-@app.route('/post/<id>', methods=["GET", "DELETE", "POST"])
-def handlePost():
-    return "NOT IMPLEMENTED"
+@app.route('/post/<post_id>', methods=["GET", "DELETE", "POST"])
+def handlePost(post_id):
+    if request.method == "GET":
+        handlePost = db.query(Post).filter_by(id=post_id).first()
+        return render_template("post.html", app_name=app_name,
+                               post_id=handlePost.id, title=handlePost.title,
+                               description=handlePost.description) \
+            if isLoggedIn() else redirectToLogin()
+
+    elif request.method == "POST":
+        print(str(post_id) + "#100")
+        if post_id is None:
+            title = request.form.get('title')
+            description = request.form.get('description')
+            author = getCurrentUser()
+
+            Post.create(title=title, description=description, author=author)
+
+            return redirectToRoute("dashboard")
+
+        else:
+            id = post_id
+            title = request.form.get('title')
+            description = request.form.get('description')
+            Post.update(id=id, title=title, description=description)
+
+            return redirectToRoute("dashboard")
+
+    elif request.method == "DELETE":
+        return "NOT IMPLEMENTED"
 
 
 @app.route('/post', methods=["POST"])
