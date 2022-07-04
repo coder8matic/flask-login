@@ -358,6 +358,8 @@ Temporary Items
 # Support for Project snippet scope
 .vscode/*.code-snippets
 
+.vscode
+
 # Ignore code-workspaces
 *.code-workspace
 
