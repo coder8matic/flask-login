@@ -69,12 +69,6 @@ def dashboard():
     else:
         return redirectToLogin()
 
-
-# @app.route('/post-form', methods=["GET"])
-# def post_form():
-#     return render_template("post_add_form.html", app_name=app_name) \
-#         if isLoggedIn() else redirectToLogin()
-
 @app.route('/post', methods=["GET", "POST"])
 def createPost():
     if request.method == "GET":
