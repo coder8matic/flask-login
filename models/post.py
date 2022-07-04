@@ -23,12 +23,7 @@ class Post(db.Model):
 
     @classmethod
     def update(self, id, title, description):
-        print(id)
         updatePost = db.query(Post).filter_by(id=id).first()
-        print(updatePost)
-        print(updatePost.title)
-        print(updatePost.description)
-        
         updatePost.title = title
         updatePost.description = description
         updatePost.updated_at = datetime.utcnow()
@@ -37,18 +32,12 @@ class Post(db.Model):
         db.commit()
         return updatePost
 
-    # def update(self, id, title, description, author,
-    #            created_at, updated_at=datetime.utcnow()):
-    #     updatePost = self(id=id, title=title, description=description,
-    #                       author=author, created_at=created_at,
-    #                       updated_at=updated_at)
-    #     db.add(updatePost)
-    #     db.commit()
-    #     return updatePost
-
     @classmethod
-    def delete(self, id, deleted, deleted_at=datetime.utcnow()):
-        deletePost = self(id=id, deleted=deleted, deleted_at=deleted_at)
+    def delete(self, id):
+        deletePost = db.query(Post).filter_by(id=id).first()
+        deletePost.deleted = True
+        deletePost.deleted_at = datetime.utcnow()
+
         db.add(deletePost)
         db.commit()
         return deletePost
