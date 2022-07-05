@@ -69,6 +69,7 @@ def dashboard():
     else:
         return redirectToLogin()
 
+
 @app.route('/post', methods=["GET", "POST"])
 def createPost():
     if request.method == "GET":
