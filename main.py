@@ -1,12 +1,10 @@
 from flask import Flask
-import hashlib
-from flask import render_template, request, make_response, redirect, url_for
-from models.user import User
-from models.post import Post
-from models.settings import db
-import uuid
+from handlers.auth import authentication_handlers
+from handlers.dashboard import dashboard_handlers
+from handlers.post import post_handlers
 
 app = Flask(__name__)
+<<<<<<< HEAD
 app_name = "myApp"
 
 
@@ -146,7 +144,12 @@ def getCurrentUser():
 
 def redirectToRoute(route):
     return make_response(redirect(url_for(route)))
+=======
+app.register_blueprint(authentication_handlers)
+app.register_blueprint(dashboard_handlers)
+app.register_blueprint(post_handlers)
+>>>>>>> bdcc9a1df733111873a28f1b2cd82d6a9deed93e
 
 
 if __name__ == '__main__':
-    app.run(use_reloader=True, port=12345)
+    app.run(use_reloader=True, port=12333)

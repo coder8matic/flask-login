@@ -13,6 +13,7 @@ class Post(db.Model):
     deleted_at = db.Column(db.DateTime, default=None)
     deleted = db.Column(db.Boolean, default=False)
 
+<<<<<<< HEAD
     @classmethod
     def create(self, title, description, author):
         newPost = self(title=title, description=description,
@@ -41,3 +42,5 @@ class Post(db.Model):
         db.add(deletePost)
         db.commit()
         return deletePost
+=======
+>>>>>>> bdcc9a1df733111873a28f1b2cd82d6a9deed93e
