@@ -52,12 +52,6 @@ def handlePost(post_id):
 
             return redirectToRoute("dashboard")
 
-    elif request.method == "DELETE":
-        print("delete method")
-        id = post_id
-        print(id)
-        Post.delete(id=id)
-
 
 @post_handlers.route('/post/delete/<post_id>', methods=["POST"])
 def deletePost(post_id):
