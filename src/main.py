@@ -7,8 +7,6 @@ from src.models.settings import db
 from src.models.user import User
 from src.utils.user_helper import isLoggedIn, redirectToRoute
 
-app = Flask(__name__)
-
 # Check if everything is OK with DB. If DB do not exist create DB
 try:
     db.query(User).first()
