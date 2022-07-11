@@ -1,4 +1,4 @@
-from models.settings import db
+from src.models.settings import db
 from datetime import datetime
 
 
