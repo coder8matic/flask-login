@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request
-from src.main import app_name
+from src.utils.app_name import app_name
 from src.models.post import Post
 from src.models.settings import db
 from src.utils.user_helper import (getCurrentUser, isLoggedIn, redirectToLogin,
