@@ -50,7 +50,7 @@ def handlePost(post_id):
             description = request.form.get('description')
             Post.update(id=id, title=title, description=description)
 
-            return redirectToRoute("dashboard")
+            return redirectToRoute("dashboard.dashboard")
 
 
 @post_handlers.route('/post/delete/<post_id>', methods=["POST"])
