@@ -5,6 +5,7 @@ from flask import (Blueprint, make_response, redirect, render_template,
 from src.main import app_name
 from src.models.settings import db
 from src.models.user import User
+from src.utils.app_name import app_name
 
 authentication_handlers = Blueprint("auth", __name__)
 
