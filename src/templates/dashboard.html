@@ -5,7 +5,7 @@
         <div class="card-title">
             <div class="row">
                 <div class="col">Welcome to app, {{user.email}}!</div>
-                <div class="col d-grid gap-2 d-md-flex justify-content-md-end"><a class="btn btn-primary" href="/post">+</a></div>
+                <div class="col d-grid gap-2 d-md-flex justify-content-md-end"><a class="btn btn-primary" href="{{ url_for('post.createPost') }}">+</a></div>
             </div>
         </div>
         <div class="card-text">
@@ -28,7 +28,7 @@
                     <td>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <div class="col-auto mt-2">
-                            <a href="{{ url_for('post.handlePost', posrt_id=post.id) }}" class="btn btn-outline-primary">Edit</a>
+                            <a href="{{ url_for('post.handlePost', post_id=post.id) }}" class="btn btn-outline-primary">Edit</a>
                             </div>
                             <div class="col-auto mt-2">
                                 <form action="{{ url_for('post.deletePost', post_id=post.id) }}" method="POST">
