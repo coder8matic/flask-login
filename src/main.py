@@ -2,10 +2,10 @@ from flask import Flask
 from src.handlers.auth import authentication_handlers
 from src.handlers.dashboard import dashboard_handlers
 from src.handlers.post import post_handlers
-from models.post import Post
-from models.settings import db
-from models.user import User
-from utils.user_helper import isLoggedIn, redirectToRoute
+from src.models.post import Post
+from src.models.settings import db
+from src.models.user import User
+from src.utils.user_helper import isLoggedIn, redirectToRoute
 
 app = Flask(__name__)
 
