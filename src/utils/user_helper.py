@@ -1,6 +1,6 @@
 from flask import make_response, redirect, request, url_for
-from models.settings import db
-from models.user import User
+from src.models.settings import db
+from src.models.user import User
 
 
 def isLoggedIn():
