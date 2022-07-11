@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, request
-from main import app_name
-from models.post import Post
-from models.settings import db
-from utils.user_helper import (getCurrentUser, isLoggedIn, redirectToLogin,
+from src.main import app_name
+from src.models.post import Post
+from src.models.settings import db
+from src.utils.user_helper import (getCurrentUser, isLoggedIn, redirectToLogin,
                                redirectToRoute)
 
 post_handlers = Blueprint("post_handlers", __name__)

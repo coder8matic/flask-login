@@ -2,9 +2,9 @@ import hashlib
 import uuid
 from flask import (Blueprint, make_response, redirect, render_template,
                    request, url_for)
-from main import app_name
-from models.settings import db
-from models.user import User
+from src.main import app_name
+from src.models.settings import db
+from src.models.user import User
 
 authentication_handlers = Blueprint("auth", __name__)
 
