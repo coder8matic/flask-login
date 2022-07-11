@@ -29,7 +29,7 @@ def handlePost(post_id):
         print("get method")
         handlePost = db.query(Post).filter_by(id=post_id).first()
         return render_template("post.html", app_name=app_name,
-                               post_id=handlePost.id, title=handlePost.title,
+                               id=handlePost.id, title=handlePost.title,
                                description=handlePost.description) \
             if isLoggedIn() else redirectToLogin()
 

@@ -6,7 +6,7 @@
             Edit post
         </div>
         <div class="card-text">
-            <form action="{{ url_for('post_handlers.handlePost', id=post.id) }}" method="POST">
+            <form action="{{ url_for('post_handlers.handlePost', post_id=post.id) }}" method="POST">
                 <div class="col-auto">
                     <label for="title" class="form-label">Title</label>
                     <input type="text" class="form-control" id="title" name="title" value="{{ title }}" required>
