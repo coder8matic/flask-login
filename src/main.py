@@ -22,16 +22,16 @@ except:   # noqa E722
 # end of DB check
 
 
-@app.route('/', methods=["GET"])
-def index():
-    return redirectToRoute("dashboard") if isLoggedIn() \
-                                        else redirectToRoute("login")
-
-
 app = Flask(__name__)
 app.register_blueprint(authentication_handlers)
 app.register_blueprint(dashboard_handlers)
 app.register_blueprint(post_handlers)
+
+
+@app.route('/', methods=["GET"])
+def index():
+    return redirectToRoute("dashboard") if isLoggedIn() \
+                                        else redirectToRoute("login")
 
 
 if __name__ == '__main__':
