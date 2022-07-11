@@ -8,8 +8,6 @@ from models.user import User
 from utils.user_helper import isLoggedIn, redirectToRoute
 
 app = Flask(__name__)
-app_name = "myApp"
-
 
 # Check if everything is OK with DB. If DB do not exist create DB
 try:
