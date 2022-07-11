@@ -30,8 +30,8 @@ app.register_blueprint(post_handlers)
 
 @app.route('/', methods=["GET"])
 def index():
-    return redirectToRoute("dashboard") if isLoggedIn() \
-                                        else redirectToRoute("login")
+    return redirectToRoute("dashboard.dashboard") if isLoggedIn() \
+                                        else redirectToRoute("auth.login")
 
 
 if __name__ == '__main__':

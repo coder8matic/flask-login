@@ -42,7 +42,7 @@ def handlePost(post_id):
 
             Post.create(title=title, description=description, author=author)
 
-            return redirectToRoute("dashboard")
+            return redirectToRoute("dashboard.dashboard")
 
         else:
             id = post_id
@@ -64,4 +64,4 @@ def deletePost(post_id):
     id = post_id
     Post.delete(id=id)
 
-    return redirectToRoute("dashboard")
+    return redirectToRoute("dashboard.dashboard")

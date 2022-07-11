@@ -28,7 +28,7 @@ def login():
                 db.add(tryUser)
                 db.commit()
 
-                response = make_response(redirect(url_for("dashboard")))
+                response = make_response(redirect(url_for("dashboard.dashboard")))
                 response.set_cookie("session_token", tryUser.session_token,
                                     httponly=True, samesite='Strict')
 
