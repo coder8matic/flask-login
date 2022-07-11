@@ -11,7 +11,7 @@ def isLoggedIn():
 
 
 def redirectToLogin():
-    return redirectToRoute("index")
+    return redirectToRoute("auth.login")
 
 
 def getCurrentUser():

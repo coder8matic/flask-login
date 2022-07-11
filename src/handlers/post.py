@@ -20,7 +20,7 @@ def createPost():
 
         Post.create(title=title, description=description, author=author)
 
-        return redirectToRoute("dashboard")
+        return redirectToRoute("dashboard.dashboard")
 
 
 @post_handlers.route('/post/<post_id>', methods=["GET", "POST"])
