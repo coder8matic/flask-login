@@ -6,7 +6,7 @@
                 Login to app
             </div>
             <div class="card-text">
-                <form action="{{ url_for('authentication_handlers.login') }}"" method="post">
+                <form action="{{ url_for('auth.login') }}"" method="post">
                     <div class="col-auto">
                         <label for="email" class="form-label">Email</label>
                         <input type="email" class="form-control" id="email" name="email" required>
