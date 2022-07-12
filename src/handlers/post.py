@@ -28,10 +28,13 @@ def handlePost(post_id):
     if request.method == "GET":
         print("get method")
         handlePost = db.query(Post).filter_by(id=post_id).first()
-        return render_template("post.html", app_name=app_name,
-                               id=handlePost.id, title=handlePost.title,
-                               description=handlePost.description) \
-            if isLoggedIn() else redirectToLogin()
+        if handlePost in None:
+            return redirectToRoute("error.error404")   # redirect to 404
+        else:
+            return render_template("post_edit.html", app_name=app_name,
+                                   id=handlePost.id, title=handlePost.title,
+                                   description=handlePost.description) \
+                if isLoggedIn() else redirectToLogin()
 
     elif request.method == "POST":
         if post_id is None:
