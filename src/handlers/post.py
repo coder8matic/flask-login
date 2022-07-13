@@ -28,7 +28,7 @@ def handlePost(post_id):
     if request.method == "GET":
         print("get method")
         handlePost = db.query(Post).filter_by(id=post_id).first()
-        if handlePost in None:
+        if handlePost is None:
             return redirectToRoute("error.error404")   # redirect to 404
         else:
             return render_template("post_edit.html", app_name=app_name,
