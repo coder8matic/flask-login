@@ -1,4 +1,5 @@
 import hashlib
+import json
 import uuid
 
 from flask import (Blueprint, make_response, redirect, render_template,
@@ -6,6 +7,7 @@ from flask import (Blueprint, make_response, redirect, render_template,
 from src.models.settings import db
 from src.models.user import User
 from src.utils.app_name import app_name
+from src.utils.redis_settings import r
 
 authentication_handlers = Blueprint("auth", __name__)
 
@@ -25,12 +27,16 @@ def login():
         else:
             tryPassword = hashlib.sha256(password.encode()).hexdigest()
             if tryPassword == tryUser.password:
-                tryUser.session_token = uuid.uuid4().__str__()
-                db.add(tryUser)
-                db.commit()
+                session_token = uuid.uuid4().__str__()
+                # insert into redis
+                r.set(name=session_token, value=json.dumps({
+                   'id': tryUser.id,
+                   'emaail': tryUser.email,
+                   'password': tryUser.password
+                }))
 
-                response = make_response(redirect(url_for("dashboard.dashboard")))
-                response.set_cookie("session_token", tryUser.session_token,
+                response = make_response(redirect(url_for("dashboard.dashboard")))  # noqa E501
+                response.set_cookie("session_token", session_token,
                                     httponly=True, samesite='Strict')
 
                 return response
