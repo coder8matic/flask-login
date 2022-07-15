@@ -15,8 +15,13 @@
     <div class="card-footer bg-transparent">
         {% for comment in comments %} 
         <table class="table table-striped">
-            <tr>{{ comment.comment.comment }}</tr>
-            <tr>{{ comment.comment.author }}</tr>
+            <tr>
+                {{ comment.comment.comment }}
+                |
+                {{ comment.comment.author }}
+                |
+                {{ comment.comment.created_at }}
+            </tr>
         </table>
         {% endfor %} 
     </div>
