@@ -12,10 +12,11 @@
         <h5 class="card-title">{{ post.title }}</h5>
         <p class="card-text">{{ post.description }}</p>
     </div>
-    <div class="card-footer bg-transparent border-success">
+    <div class="card-footer bg-transparent">
         {% for comment in comments %} 
         <table class="table table-striped">
             <tr>{{ comment.comment.comment }}</tr>
+            <tr>{{ comment.comment.author }}</tr>
         </table>
         {% endfor %} 
     </div>
