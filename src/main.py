@@ -2,6 +2,7 @@ from flask import Flask
 from src.handlers.auth import authentication_handlers
 from src.handlers.dashboard import dashboard_handlers
 from src.handlers.post import post_handlers
+from src.handlers.comment import comment_handlers
 from src.handlers.error import error_handlers
 from src.models.settings import db
 from src.models.comment import Comment
@@ -30,13 +31,14 @@ app = Flask(__name__)
 app.register_blueprint(authentication_handlers)
 app.register_blueprint(dashboard_handlers)
 app.register_blueprint(post_handlers)
+app.register_blueprint(comment_handlers)
 app.register_blueprint(error_handlers)
 
 
 @app.route('/', methods=["GET"])
 def index():
-    return redirectToRoute("dashboard.dashboard") if isLoggedIn() \
-                                        else redirectToRoute("auth.login")
+    return redirectToRoute("dashboard.dashboard") \
+        if isLoggedIn() else redirectToRoute("auth.login")
 
 
 if __name__ == '__main__':

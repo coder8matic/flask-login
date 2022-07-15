@@ -6,11 +6,11 @@ from src.utils.app_name import app_name
 from src.utils.user_helper import (getCurrentUser, isLoggedIn, redirectToLogin,
                                    redirectToRoute)
 
-post_handlers = Blueprint("post_handlers", __name__)
+comment_handlers = Blueprint("comment_handlers", __name__)
 
 
-@post_handlers.route('/comment/<post_id>', methods=["GET", "POST"])
-def CommentPost(post_id):
+@comment_handlers.route('/post_comments/<post_id>', methods=["GET", "POST"])
+def PostComments(post_id):
     if request.method == "GET":
         getPost = db.query(Post).filter_by(id=post_id).first()
         if getPost is None:
