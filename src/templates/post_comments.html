@@ -1,14 +1,14 @@
 {% extends "layouts/loggedin.html" %}
 {% block content %}
-<div class="card border mb-3" style="max-width: 18rem;">
-    <div class="card-header bg-transparent border-success">
+<div class="card border mb-3">
+    <div class="card-header bg-transparent text-lowercase">
         {{ post.id }}
         |
         {{ post.author.email }}
         |
         {{ post.created_at }}
     </div>
-    <div class="card-body text-success">
+    <div class="card-body">
         <h5 class="card-title">{{ post.title }}</h5>
         <p class="card-text">{{ post.description }}</p>
     </div>
