@@ -16,7 +16,7 @@
         {% for comment in comments %} 
         <table class="table table-striped">
             <tr>{{ comment.comment }}</tr>
-            <tr>{{ comment.author.email | comment.created_at }}</tr>
+            <!-- <tr>{{ comment.author.email | comment.created_at }}</tr> -->
         </table>
         {% endfor %} 
     </div>
