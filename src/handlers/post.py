@@ -8,21 +8,6 @@ from src.utils.user_helper import (getCurrentUser, isLoggedIn, redirectToLogin,
 post_handlers = Blueprint("post_handlers", __name__)
 
 
-@post_handlers.route('/post', methods=["GET", "POST"])
-def showPost():
-    if request.method == "GET":
-        return render_template("post.html", app_name=app_name) \
-            if isLoggedIn() else redirectToLogin()
-    elif request.method == "POST":
-        title = request.form.get('title')
-        description = request.form.get('description')
-        author = getCurrentUser()
-
-        Post.create(title=title, description=description, author=author)
-
-        return redirectToRoute("dashboard.dashboard")
-
-
 @post_handlers.route('/new_post', methods=["GET", "POST"])
 def createPost():
     if request.method == "GET":
