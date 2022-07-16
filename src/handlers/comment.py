@@ -22,14 +22,16 @@ def PostComments(post_id):
                                comments=getComments,
                                user=getCurrentUser()) \
             if isLoggedIn() else redirectToLogin()
-    # elif request.method == "POST":
-    #     title = request.form.get('title')
-    #     description = request.form.get('description')
-    #     author = getCurrentUser()
+    elif request.method == "POST":
+        post_id = post_id
+        comment = request.form.get('newComment')
+        author = getCurrentUser()
 
-    #     Post.create(title=title, description=description, author=author)
+        Comment.create(post_id=post_id, comment=comment, author=author)
 
-    #    return redirectToRoute("dashboard.dashboard")
+        print(post_id, comment, author)
+
+        return redirectToRoute("comment.PostComments", post_id=post_id)
 
 
 # @post_handlers.route('/post/<post_id>', methods=["GET", "POST"])

@@ -31,7 +31,7 @@ def login():
                 # insert into redis
                 r.set(name=session_token, value=json.dumps({
                    'id': tryUser.id,
-                   'emaail': tryUser.email,
+                   'email': tryUser.email,
                    'password': tryUser.password
                 }))
 

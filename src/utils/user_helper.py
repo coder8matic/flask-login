@@ -1,13 +1,16 @@
+import json
+from stat import FILE_ATTRIBUTE_ARCHIVE
 from flask import make_response, redirect, request, url_for
 from src.models.settings import db
 from src.models.user import User
+from src.utils.redis_settings import r
 
 
 def isLoggedIn():
     session_token = request.cookies.get("session_token")
-    user = getCurrentUser() if session_token else None
+    logged_user = getCurrentUser() if session_token else None
 
-    return user is not None
+    return logged_user is not None  # Returens True or False
 
 
 def redirectToLogin():
@@ -16,7 +19,23 @@ def redirectToLogin():
 
 def getCurrentUser():
     session_token = request.cookies.get("session_token")
-    return db.query(User).filter_by(session_token=session_token).first()
+    user_redis = r.get(name=session_token)
+    if user_redis is None:
+        User is None
+    else:
+        user_json = json.loads(user_redis)
+        print(user_json)
+        User.id = int(user_json.get('id'))
+        User.email = user_json.get('email')
+        User.password = user_json.get('password')
+        print("user:")
+        print(User)
+        print("user dict:")
+        print(User.__dict__)
+        print("from database:")
+        print((db.query(User).filter_by(id=User.id).first()).__dict__)
+
+    return User
 
 
 def redirectToRoute(route):
