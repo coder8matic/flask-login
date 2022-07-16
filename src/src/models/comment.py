@@ -18,9 +18,9 @@ class Comment(db.Model):
     deleted = db.Column(db.Boolean, default=False)
 
     @classmethod
-    def create(self, post_id, comment, author):
+    def create(self, post_id, comment, author_id):
         newComment = self(post_id=post_id, comment=comment,
-                          author=author)
+                          author_id=author_id)
         db.add(newComment)
         db.commit()
         return newComment

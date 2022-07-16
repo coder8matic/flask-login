@@ -1,0 +1,2 @@
+export DATABASE_URL="postgres://thdozrqskdxgxa:97e0beb35d367ab4b6adcf056ef29b940868f944b48af1b10e5b0bafee36c944@ec2-52-30-159-47.eu-west-1.compute.amazonaws.com:5432/d1n2tf347bldd0"
+export REDIS_TLS_URL="rediss://:pc19ef05913d3dd4fa43cd9099fe6b129640e2b13afe5c6e310ade3a24995fedd@ec2-34-249-171-79.eu-west-1.compute.amazonaws.com:21090"

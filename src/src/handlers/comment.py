@@ -11,11 +11,12 @@ comment_handlers = Blueprint("comment_handlers", __name__)
 
 @comment_handlers.route('/post_comments/<post_id>', methods=["GET", "POST"])
 def PostComments(post_id):
+    getPost = db.query(Post).filter_by(id=post_id).first()
     if request.method == "GET":
-        getPost = db.query(Post).filter_by(id=post_id).first()
         if getPost is None:
             return redirectToRoute("error.error404")   # redirect to 404
         getComments = db.query(Comment).filter_by(post_id=post_id).all()
+        print(getComments)
         return render_template("post_comments.html",
                                app_name=app_name,
                                post=getPost,
@@ -23,16 +24,18 @@ def PostComments(post_id):
                                user=getCurrentUser()) \
             if isLoggedIn() else redirectToLogin()
     elif request.method == "POST":
-        post_id = post_id
+        # post_id = post_id
         comment = request.form.get('newComment')
-        author = getCurrentUser()
+        author_id = getCurrentUser().id
 
-        Comment.create(post_id=post_id, comment=comment, author=author)
-
-        print(post_id, comment, author)
-
-        return redirectToRoute("comment.PostComments", post_id=post_id)
-
+        Comment.create(post_id=post_id, comment=comment, author_id=author_id)
+        getComments = db.query(Comment).filter_by(post_id=post_id).all()
+        return render_template("post_comments.html",
+                               app_name=app_name,
+                               post=getPost,
+                               comments=getComments,
+                               user=getCurrentUser()) \
+            if isLoggedIn() else redirectToLogin()
 
 # @post_handlers.route('/post/<post_id>', methods=["GET", "POST"])
 # def handlePost(post_id):

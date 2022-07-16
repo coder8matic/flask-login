@@ -14,43 +14,34 @@
     </div>
     <div class="card-footer bg-transparent">
         <table class="table">
-            <!-- <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
-              </tr>
-            </thead> -->
             <tbody>
                 {% for comment in comments %}
                 <tr>
-                    {{ comment.comment.comment }}
+                    <td>
+                    " {{ comment.comment }} "
+                    </td>
                 </tr>
                 <tr>
-                    {{ comment.comment.author.email }}
+                    <td>
+                    {{ comment.author.email }}
                     |
-                    {{ comment.comment.created_at }}
+                    {{ comment.created_at }}
+                    </td>
                 </tr>
                 {% endfor %}
                 <tr>
                     <td>
                     <form action="{{ url_for('comment_handlers.PostComments', post_id=post.id) }}" method="POST">
-                    <label for="newComment" class="form-label"> New Comment</label>
-                    <textarea id="newComment" name="newComment" class="form-control" required></textarea>
+                    <!-- <label for="newComment" class="form-label"> New Comment</label> -->
+                    <textarea id="newComment" name="newComment" class="form-control" placeholder="Enter your comment here" required></textarea>
                     <div class="col-auto mt-2">
-                        <button type="submit" class="btn btn-secondary">Update</button>
+                        <button type="submit" class="btn btn-secondary">Submit</button>
                     </div>
                     </form>
                     </td>
                 </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                </tr>
             </tbody>
-          </table>
+        </table>
     </div>
 </div>
 {% endblock %}
