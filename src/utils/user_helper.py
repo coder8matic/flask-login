@@ -1,6 +1,8 @@
+import json
 from flask import make_response, redirect, request, url_for
-from src.models.settings import db
-from src.models.user import User
+# from src.models.settings import db
+# from src.models.user import User
+from utils.redis_settings import r
 
 
 def isLoggedIn():
@@ -16,7 +18,9 @@ def redirectToLogin():
 
 def getCurrentUser():
     session_token = request.cookies.get("session_token")
-    return db.query(User).filter_by(session_token=session_token).first()
+    user_json = r.get(name=session_token)
+    user = json.load(user_json)
+    return user
 
 
 def redirectToRoute(route):
