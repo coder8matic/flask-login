@@ -23,6 +23,7 @@ def getCurrentUser():
         User is None
     else:
         user_json = json.loads(user_redis)
+        print(user_json)
         User.id = int(user_json.get('id'))
         User.email = user_json.get('email')
         User.password = user_json.get('password')
