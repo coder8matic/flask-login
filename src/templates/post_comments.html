@@ -14,25 +14,25 @@
     </div>
     <div class="card-footer bg-transparent">
         {% for comment in comments %} 
-        <table class="table table-striped">
-            <tr>
-                {{ comment.comment.comment }}
-                |
-                {{ comment.comment.author }}
-                |
-                {{ comment.comment.created_at }}
-            </tr>
-            <tr>
-                <label>comment:</label>
+            <table class="table table-striped">
+                <tr>
+                    {{ comment.comment.comment }}
+                    |
+                    {{ comment.comment.author }}
+                    |
+                    {{ comment.comment.created_at }}
+                </tr>
+                <tr>
+                    <label>comment:</label>
 
-                <div class="mb-3">
-                  <label for="" class="form-label">test comment</label>
-                  <input type="text"
-                    class="form-control" name="" id="" aria-describedby="helpId" placeholder="enter your comment">
-                  <small id="helpId" class="form-text text-muted">Help text</small>
-                </div>
-            </tr>
-        </table>
+                    <div class="mb-3">
+                    <label for="" class="form-label">test comment</label>
+                    <input type="text"
+                        class="form-control" name="" id="" aria-describedby="helpId" placeholder="enter your comment">
+                    <small id="helpId" class="form-text text-muted">Help text</small>
+                    </div>
+                </tr>
+            </table>
         {% endfor %} 
     </div>
 </div>
