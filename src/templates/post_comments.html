@@ -35,7 +35,7 @@
                 {% endfor %}
                 <tr>
                     <td>
-                    <form action="{{ url_for('comment_handlers.PostComments', post_id=post_id) }}" method="POST">
+                    <form action="{{ url_for('comment_handlers.PostComments', post_id=post.id) }}" method="POST">
                     <label for="newComment" class="form-label"> New Comment</label>
                     <textarea id="newComment" name="newComment" class="form-control" required></textarea>
                     <div class="col-auto mt-2">
