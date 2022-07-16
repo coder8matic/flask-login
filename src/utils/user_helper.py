@@ -9,7 +9,7 @@ def isLoggedIn():
     session_token = request.cookies.get("session_token")
     user = getCurrentUser() if session_token else None
 
-    return user is not None
+    return user is not None  # Returens True or False
 
 
 def redirectToLogin():
@@ -23,7 +23,7 @@ def getCurrentUser():
     if user_json is None:
         user = None
     else:
-        user = json.load(user_json)
+        user = json.loads(user_json)
         print(user)  # tmp
     return user
 
