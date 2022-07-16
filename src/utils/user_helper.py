@@ -19,7 +19,12 @@ def redirectToLogin():
 def getCurrentUser():
     session_token = request.cookies.get("session_token")
     user_json = r.get(name=session_token)
-    user = json.load(user_json)
+    print(user_json)  # tmp
+    if user_json in None:
+        user = None
+    else:
+        user = json.load(user_json)
+        print(user)  # tmp
     return user
 
 
