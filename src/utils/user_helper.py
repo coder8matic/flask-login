@@ -20,9 +20,9 @@ def getCurrentUser():
     session_token = request.cookies.get("session_token")
     user_redis = r.get(name=session_token)
     if user_redis is None:
-        user = None
+        User is None
     else:
-        user_json = json.loads(user_json)
+        user_json = json.loads(user_redis)
         User.id = user_json.get('id')
         User.email = user_json.get('email')
         User.password = user_json.get('password')
