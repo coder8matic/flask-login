@@ -2,7 +2,7 @@ import json
 from flask import make_response, redirect, request, url_for
 # from src.models.settings import db
 # from src.models.user import User
-from utils.redis_settings import r
+from src.utils.redis_settings import r
 
 
 def isLoggedIn():
