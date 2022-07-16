@@ -33,7 +33,7 @@ def getCurrentUser():
         print("user dict:")
         print(User.__dict__)
         print("from database:")
-        print((db.query(User).filter_by(User.id == User.id).first()).__dict__)
+        print((db.query(User).filter_by(User.id=User.id).first()).__dict__)
 
     return User
 
