@@ -27,6 +27,11 @@ def getCurrentUser():
         User.id = int(user_json.get('id'))
         User.email = user_json.get('email')
         User.password = user_json.get('password')
+        
+        print("user.id:")
+        print(User.id)
+        print("json.get id:")
+        print(int(user_json.get('id')))
 
     return User
 
