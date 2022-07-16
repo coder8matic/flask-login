@@ -34,8 +34,13 @@
                 </tr>
                 {% endfor %}
                 <tr>
-                    <th scope="row">2</th>
-                    <td>New comment: <input name="newComment" placeholder="Enter your comment"> </td>
+                    <td>
+                    <form action="{{ url_for('comment_handlers.newCommet') }}" method="POST">
+                    <label for="newComment" class="form-label"> New Comment</label>
+                    <textarea id="newComment" name="newComment" class="form-control" required></textarea>
+                    
+                    </form>
+                    </td>
                 </tr>
                 <tr>
                     <th scope="row">3</th>
