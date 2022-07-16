@@ -7,9 +7,9 @@ from src.utils.redis_settings import r
 
 def isLoggedIn():
     session_token = request.cookies.get("session_token")
-    user = getCurrentUser() if session_token else None
+    logged_user = getCurrentUser() if session_token else None
 
-    return user is not None  # Returens True or False
+    return logged_user is not None  # Returens True or False
 
 
 def redirectToLogin():
