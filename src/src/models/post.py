@@ -14,9 +14,9 @@ class Post(db.Model):
     deleted = db.Column(db.Boolean, default=False)
 
     @classmethod
-    def create(self, title, description, author):
+    def create(self, title, description, author_id):
         newPost = self(title=title, description=description,
-                       author=author)
+                       author_id=author_id)
         db.add(newPost)
         db.commit()
         return newPost
