@@ -20,8 +20,9 @@
                 </thead>
                 <tbody>
                 {% for post in posts %}
-                <a href={{ url_for('comment_handlers.PostComments', post_id=post.id) }}>
+                
                 <tr>
+                    <a href={{ url_for('comment_handlers.PostComments', post_id=post.id) }}>
                     <td>{{ post.id }}</td>
                     <td>{{ post.title }}</td>
                     <td>{{ post.author.email }}</td>
@@ -38,8 +39,8 @@
                             </div>
                         </div>
                     </td>
-                </tr>
-                </a>
+                    </a>
+                </tr>            
                 {% endfor %}
                 </tbody>
             
