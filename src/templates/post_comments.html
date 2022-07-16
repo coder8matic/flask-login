@@ -13,31 +13,35 @@
         <p class="card-text">{{ post.description }}</p>
     </div>
     <div class="card-footer bg-transparent">
-        {% for comment in comments %} 
-            <table class="table table-striped table-hover">
-                <thead></thead>
-                <tbody>
-                    <td>
-                    <tr>
-                        {{ comment.comment.comment }}
-                        |
-                        {{ comment.comment.author }}
-                        |
-                        {{ comment.comment.created_at }}
-                    </tr>
-                    <tr>
-                        comment:
-                        <div class="mb-3">
-                            <label for="" class="form-label">test comment</label>
-                            <input type="text"
-                                class="form-control" name="" id="" aria-describedby="helpId" placeholder="enter your comment">
-                            <small id="helpId" class="form-text text-muted">Help text</small>
-                        </div>
-                    </tr>
-                    </td>
-                </tbody>`
-            </table>
-        {% endfor %} 
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td colspan="2">Larry the Bird</td>
+                <td>@twitter</td>
+              </tr>
+            </tbody>
+          </table>
     </div>
 </div>
 {% endblock %}
