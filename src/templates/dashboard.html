@@ -22,8 +22,8 @@
                 {% for post in posts %}
                 <tr>
                     <a href={{ url_for('comment_handlers.PostComments', post_id=post.id) }}>
-                    <td>{{ post.id }}</td>
-                    <td>{{ post.title }}</td>
+                    <td><a href={{ url_for('comment_handlers.PostComments', post_id=post.id) }}>{{ post.id }}</a></td>
+                    <td><a href={{ url_for('comment_handlers.PostComments', post_id=post.id) }}>{{ post.title }}</a></td>
                     <td>{{ post.author.email }}</td>
                     <td>{{ post.created_at }}</td>
                     <td>
