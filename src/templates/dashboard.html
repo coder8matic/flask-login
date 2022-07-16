@@ -20,7 +20,6 @@
                 </thead>
                 <tbody>
                 {% for post in posts %}
-                
                 <tr>
                     <a href={{ url_for('comment_handlers.PostComments', post_id=post.id) }}>
                     <td>{{ post.id }}</td>
