@@ -1,7 +1,7 @@
 import json
 from flask import make_response, redirect, request, url_for
 # from src.models.settings import db
-# from src.models.user import User
+from src.models.user import User
 from src.utils.redis_settings import r
 
 
@@ -18,12 +18,16 @@ def redirectToLogin():
 
 def getCurrentUser():
     session_token = request.cookies.get("session_token")
-    user_json = r.get(name=session_token)
-    if user_json is None:
+    user_redis = r.get(name=session_token)
+    if user_redis is None:
         user = None
     else:
-        user = json.loads(user_json)
-    return user
+        user_json = json.loads(user_json)
+        User.id = user_json.get('id')
+        User.email = user_json.get('email')
+        User.password = user_json.get('password')
+
+    return User
 
 
 def redirectToRoute(route):

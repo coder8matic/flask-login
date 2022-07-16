@@ -29,8 +29,9 @@ def PostComments(post_id):
 
         Comment.create(post_id=post_id, comment=comment, author=author)
 
-        # return redirectToRoute("comment.PostComments", post_id=post_id)
-        return post_id, comment, author
+        print(post_id, comment, author)
+
+        return redirectToRoute("comment.PostComments", post_id=post_id)
 
 
 # @post_handlers.route('/post/<post_id>', methods=["GET", "POST"])
