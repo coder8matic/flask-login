@@ -15,7 +15,6 @@ class Comment(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow())
     updated_at = db.Column(db.DateTime, default=None)
     deleted_at = db.Column(db.DateTime, default=None)
-    deleted = db.Column(db.Boolean, default=False)
 
     @classmethod
     def create(self, post_id, comment, author_id):
@@ -26,10 +25,11 @@ class Comment(db.Model):
         return newComment
 
     @classmethod
-    def update(self, id, post_id, comment):
+    def update(self, id, comment, author_id):
+
         updateComment = db.query(Comment).filter_by(id=id).first()
-        updateComment.post_id = post_id
         updateComment.comment = comment
+        updateComment.author_id = author_id
         updateComment.updated_at = datetime.utcnow()
 
         db.add(updateComment)
@@ -39,7 +39,6 @@ class Comment(db.Model):
     @classmethod
     def delete(self, id):
         deleteComment = db.query(Comment).filter_by(id=id).first()
-        deleteComment.deleted = True
         deleteComment.deleted_at = datetime.utcnow()
 
         db.add(deleteComment)

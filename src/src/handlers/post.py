@@ -18,7 +18,7 @@ def createPost():
         description = request.form.get('description')
         author = getCurrentUser()
 
-        Post.create(title=title, description=description, author=author)
+        Post.create(title=title, description=description, author_id=author.id)
 
         return redirectToRoute("dashboard.dashboard")
 

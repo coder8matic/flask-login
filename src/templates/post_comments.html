@@ -13,25 +13,77 @@
         <p class="card-text">{{ post.description }}</p>
     </div>
     <div class="card-footer bg-transparent">
-        <table class="table">
+        <table class="table align-middle">
             <tbody>
                 {% for comment in comments %}
                 <tr>
                     <td>
-                    " {{ comment.comment }} "
+                        {{ comment.id }}: " {{ comment.comment }} "
                     </td>
                 </tr>
                 <tr>
                     <td>
+                    <small>
                     {{ comment.author.email }}
                     |
                     {{ comment.created_at }}
+                    |
+                    {{ comment.updated_at }}
+                    |
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-link btn-sm" data-bs-toggle="modal" data-bs-target="#updateCommentModal{{ comment.id }}">Edit</button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="updateCommentModal{{ comment.id }}" tabindex="-1" aria-labelledby="updateCommentModal" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="updateCommentModalLabel{{ comment.id }}">Please edit a comment.</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <form action="{{ url_for('comment_handlers.updateComment', post_id=comment.post_id, comment_id=comment.id) }}" method="POST">
+                                <div class="modal-body">
+                                    <textarea id="updateComment" name="updateComment" class="form-control" placeholder="Enter your comment here" required>{{ comment.comment }}</textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancle</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </form>
+                        </div>
+                        </div>
+                    </div>
+                    <!-- End Modal -->
+                    |
+                    <!-- Delete Button trigger modal -->
+                    <button type="button" class="btn btn-link btn-sm" data-bs-toggle="modal" data-bs-target="#deleteCommentModal{{ comment.id }}">Delete</button>
+                    <!-- Delete Modal -->
+                    <div class="modal fade" id="deleteCommentModal{{ comment.id }}" tabindex="-1" aria-labelledby="deleteCommentModal" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteCommentModalLabel{{ comment.id }}">Do you realy want to delete this comment?</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <form action="{{ url_for('comment_handlers.deleteComment', post_id=comment.post_id, comment_id=comment.id) }}" method="POST">
+                                <div class="modal-body">
+                                    <label for="deleteComment" class="form-label">" {{ comment.comment }} "</label>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancle</button>
+                                    <button type="submit" class="btn btn-primary">Delete comment</button>
+                                </div>
+                            </form>
+                        </div>
+                        </div>
+                    </div>
+                    <!-- End Delete Modal -->
+                    </small>
                     </td>
                 </tr>
                 {% endfor %}
                 <tr>
                     <td>
-                    <form action="{{ url_for('comment_handlers.PostComments', post_id=post.id) }}" method="POST">
+                    <form action="{{ url_for('comment_handlers.postComments', post_id=post.id) }}" method="POST">
                     <!-- <label for="newComment" class="form-label"> New Comment</label> -->
                     <textarea id="newComment" name="newComment" class="form-control" placeholder="Enter your comment here" required></textarea>
                     <div class="col-auto mt-2">
