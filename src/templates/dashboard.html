@@ -1,11 +1,11 @@
-{% extends "layouts/loggedout.html" %}
+{% extends "layouts/loggedin.html" %}
 {% block content %}
 <div class="card">
     <div class="card-body bg-light">
         <div class="card-title">
             <div class="row">
                 <div class="col">Welcome to app, {{user.email}}!</div>
-                <div class="col d-grid gap-2 d-md-flex justify-content-md-end"><a class="btn btn-primary" href="/post">+</a></div>
+                <div class="col d-grid gap-2 d-md-flex justify-content-md-end"><a class="btn btn-primary" href="{{ url_for('post_handlers.createPost') }}">+</a></div>
             </div>
         </div>
         <div class="card-text">
@@ -20,24 +20,24 @@
                 </thead>
                 <tbody>
                 {% for post in posts %}
-                <tr a>
-                    <td>{{ post.id }}</td>
-                    <td>{{ post.title }}</td>
+                <tr>
+                    <td><a href={{ url_for('comment_handlers.postComments', post_id=post.id) }}>{{ post.id }}</a></td>
+                    <td><a href={{ url_for('comment_handlers.postComments', post_id=post.id) }}>{{ post.title }}</a></td>
                     <td>{{ post.author.email }}</td>
                     <td>{{ post.created_at }}</td>
                     <td>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <div class="col-auto mt-2">
-                            <a href="/post/{{ post.id }}" class="btn btn-outline-primary">Edit</a>
+                            <a href="{{ url_for('post_handlers.handlePost', post_id=post.id) }}" class="btn btn-outline-primary">Edit</a>
                             </div>
                             <div class="col-auto mt-2">
-                            <form action="/post/delete/{{ post.id }}" method="POST">
-                                <button type="submit" class="btn btn-outline-danger">Delete</button>
-                            </form>
+                                <form action="{{ url_for('post_handlers.deletePost', post_id=post.id) }}" method="POST">
+                                    <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                </form>
                             </div>
                         </div>
                     </td>
-                </tr>
+                </tr>            
                 {% endfor %}
                 </tbody>
             

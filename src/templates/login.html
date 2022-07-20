@@ -1,12 +1,12 @@
 {% extends "layouts/loggedout.html" %}
 {% block content %}
-   <div class="card">
+    <div class="card">
         <div class="card-body bg-light">
             <div class="card-title">
                 Login to app
             </div>
             <div class="card-text">
-                <form action="/login" method="post">
+                <form action="{{ url_for('auth.login') }}"" method="post">
                     <div class="col-auto">
                         <label for="email" class="form-label">Email</label>
                         <input type="email" class="form-control" id="email" name="email" required>

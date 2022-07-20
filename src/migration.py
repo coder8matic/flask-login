@@ -1,6 +1,6 @@
-from models.settings import db
-from models.post import Post
-from models.user import User
+from src.models.settings import db
+from src.models.post import Post
+from src.models.user import User
 
 db.create_all()
 
