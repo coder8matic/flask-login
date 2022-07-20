@@ -30,7 +30,9 @@ def postComments(post_id):
         author_id = getCurrentUser().id
 
         Comment.create(post_id=post_id, comment=comment, author_id=author_id)
-        getComments = db.query(Comment).filter_by(post_id=post_id).all()
+        getComments = db.query(Comment).filter_by(post_id=post_id) \
+                                       .filter_by(deleted_at=None) \
+                                       .order_by(Comment.created_at).all()
         return render_template("post_comments.html",
                                app_name=app_name,
                                post=getPost,
