@@ -51,14 +51,29 @@ def handlePost(post_id):
             id = post_id
             title = request.form.get('title')
             description = request.form.get('description')
-            Post.update(id=id, title=title, description=description)
-
+            author = getCurrentUser()
+            post = db.query(Post).filter_by(id=id).first()
+            if author.id == post.author_id:
+                Post.update(id=id, title=title, description=description)
+                notification_msg = "You have changed post successfully!"
+                print(notification_msg)
+            else:
+                notification_msg = "You don't have permissions to change post!"
+                print(notification_msg)
             return redirectToRoute("dashboard.dashboard")
 
 
 @post_handlers.route('/post/delete/<post_id>', methods=["POST"])
 def deletePost(post_id):
     id = post_id
-    Post.delete(id=id)
+    author = getCurrentUser()
+    post = db.query(Post).filter_by(id=id).first()
+    if author.id == post.author_id:
+        Post.delete(id=id)
+        notification_msg = "You have deleted post successfully!"
+        print(notification_msg)
+    else:
+        notification_msg = "You don't have permissions to delete post!"
+        print(notification_msg)
 
     return redirectToRoute("dashboard.dashboard")
