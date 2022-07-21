@@ -1,7 +1,5 @@
 import hashlib
 import json
-import re
-from urllib import response
 import uuid
 
 from flask import (Blueprint, make_response, redirect, render_template,
