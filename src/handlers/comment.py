@@ -11,8 +11,8 @@ comment_handlers = Blueprint("comment_handlers", __name__)
 
 @comment_handlers.route('/post_comments/<post_id>', methods=["POST", "GET"])
 def postComments(post_id):
+    getPost = db.query(Post).filter_by(id=post_id).first()
     if request.method == "GET":
-        getPost = db.query(Post).filter_by(id=post_id).first()
         if getPost is None:
             return redirectToRoute("error.error404")   # redirect to 404
         getComments = db.query(Comment).filter_by(post_id=post_id) \
