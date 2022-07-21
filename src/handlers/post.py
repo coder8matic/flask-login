@@ -63,17 +63,22 @@ def handlePost(post_id):
             return redirectToRoute("dashboard.dashboard")
 
 
-@post_handlers.route('/post/delete/<post_id>', methods=["POST"])
+@post_handlers.route('/post/delete/<post_id>', methods=["POST", "GET"])
 def deletePost(post_id):
-    id = post_id
-    author = getCurrentUser()
-    post = db.query(Post).filter_by(id=id).first()
-    if author.id == post.author_id:
-        Post.delete(id=id)
-        notification_msg = "You have deleted post successfully!"
-        print(notification_msg)
-    else:
-        notification_msg = "You don't have permissions to delete post!"
-        print(notification_msg)
+    if request.method == "GET":
+        return render_template("404.html", app_name=app_name,
+                           user=getCurrentUser())
 
-    return redirectToRoute("dashboard.dashboard")
+    elif request.method == "POST":
+        id = post_id
+        author = getCurrentUser()
+        post = db.query(Post).filter_by(id=id).first()
+        if author.id == post.author_id:
+            Post.delete(id=id)
+            notification_msg = "You have deleted post successfully!"
+            print(notification_msg)
+        else:
+            notification_msg = "You don't have permissions to delete post!"
+            print(notification_msg)
+
+        return redirectToRoute("dashboard.dashboard")

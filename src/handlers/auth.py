@@ -1,5 +1,7 @@
 import hashlib
 import json
+import re
+from urllib import response
 import uuid
 
 from flask import (Blueprint, make_response, redirect, render_template,
@@ -8,6 +10,7 @@ from src.models.settings import db
 from src.models.user import User
 from src.utils.app_name import app_name
 from src.utils.redis_settings import r
+from utils.user_helper import getCurrentUser
 
 authentication_handlers = Blueprint("auth", __name__)
 
@@ -58,3 +61,14 @@ def register():
         db.add(newUser)
         db.commit()
         return "You have been registered"
+
+
+@authentication_handlers.route('/logout', methods=["POST"])
+def logout():
+    if request.method == "POST":
+        session_token = request.cookies.get("session_token")
+        r.delete(name=session_token)
+        request.cookies.clear("session_token")
+    
+    response = make_response(redirect(url_for("dashboard.dashboard")))
+    return response

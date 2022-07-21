@@ -1,16 +1,16 @@
-from flask import Flask
+from flask import Flask, render_template
 
 from src.handlers.auth import authentication_handlers
 from src.handlers.dashboard import dashboard_handlers
 from src.handlers.post import post_handlers
 from src.handlers.comment import comment_handlers
-from src.handlers.error import error_handlers
 from src.models.settings import db
 from src.models.comment import Comment
 from src.models.post import Post
 from src.models.user import User
 from src.utils.user_helper import isLoggedIn, redirectToRoute
-
+from src.utils.app_name import app_name
+from src.utils.user_helper import getCurrentUser
 
 # Check if everything is OK with DB. If DB do not exist create DB
 try:
@@ -34,13 +34,17 @@ app.register_blueprint(authentication_handlers)
 app.register_blueprint(dashboard_handlers)
 app.register_blueprint(post_handlers)
 app.register_blueprint(comment_handlers)
-app.register_blueprint(error_handlers)
 
 
 @app.route('/', methods=["GET"])
 def index():
     return redirectToRoute("dashboard.dashboard") \
         if isLoggedIn() else redirectToRoute("auth.login")
+
+@app.errorhandler(404)
+def not_found(e):
+    return render_template("404.html", app_name=app_name,
+                           user=getCurrentUser())
 
 
 if __name__ == '__main__':

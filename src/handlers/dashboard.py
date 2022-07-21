@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
 from src.models.post import Post
 from src.models.settings import db
 from src.utils.user_helper import isLoggedIn, redirectToLogin, getCurrentUser
@@ -9,11 +9,16 @@ dashboard_handlers = Blueprint("dashboard", __name__)
 
 @dashboard_handlers.route('/dashboard', methods=["GET"])
 def dashboard():
-    if isLoggedIn():
-        return render_template("dashboard.html",
-                               app_name=app_name,
-                               user=getCurrentUser(),
-                               posts=db.query(Post)
-                               .filter_by(deleted=False).all())
-    else:
-        return redirectToLogin()
+    if request.method == "GET":
+        if isLoggedIn():
+            return render_template("dashboard.html",
+                                app_name=app_name,
+                                user=getCurrentUser(),
+                                posts=db.query(Post)
+                                .filter_by(deleted=False).all())
+        else:
+            return redirectToLogin()
+
+    elif request.method == "GET":
+        return render_template("404.html", app_name=app_name,
+                           user=getCurrentUser())
