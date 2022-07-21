@@ -5,3 +5,7 @@
 .vscode/*
 venv
 *__pycache__*
+src/src
+.DS_Store
+./.DS_Store
+.*
