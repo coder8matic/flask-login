@@ -15,7 +15,7 @@ def dashboard():
                                 app_name=app_name,
                                 user=getCurrentUser(),
                                 posts=db.query(Post)
-                                .filter_by(deleted=False).all())
+                                .filter_by(deleted=False).order_by(Post.created_at).all())
         else:
             return redirectToLogin()
 
