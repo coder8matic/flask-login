@@ -10,7 +10,7 @@ from src.models.settings import db
 from src.models.user import User
 from src.utils.app_name import app_name
 from src.utils.redis_settings import r
-from utils.user_helper import getCurrentUser
+from src.utils.user_helper import getCurrentUser
 
 authentication_handlers = Blueprint("auth", __name__)
 
