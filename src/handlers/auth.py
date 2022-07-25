@@ -1,3 +1,4 @@
+from genericpath import exists
 import hashlib
 import json
 import uuid
@@ -52,20 +53,24 @@ def register():
     elif request.method == "POST":
         email = request.form.get("email")
         password = request.form.get("password")
-
-        newUser = User(email=email, password=hashlib.sha256(password.encode())
-                       .hexdigest())
-        db.add(newUser)
-        db.commit()
-        return "You have been registered"
+        if db.query(User).filter_by(email=email).first() is not None:
+            message = "User with that email already exists!"
+            return message
+        else:
+            newUser = User(email=email, password=hashlib.sha256(password.encode())
+                        .hexdigest())
+            db.add(newUser)
+            db.commit()
+            message = "You have been registered"
+            return message
 
 
 @authentication_handlers.route('/logout', methods=["POST"])
 def logout():
     if request.method == "POST":
         session_token = request.cookies.get("session_token")
-        r.delete(name=session_token)
-        request.cookies.clear("session_token")
-    
-    response = make_response(redirect(url_for("dashboard.dashboard")))
-    return response
+        r.delete(session_token)
+        response = make_response(redirect(url_for("dashboard.dashboard")))  # noqa E501
+        response.set_cookie("session_token", session_token,
+                            httponly=True, samesite='Strict', max_age=0)
+        return response
