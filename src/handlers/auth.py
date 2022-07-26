@@ -1,4 +1,3 @@
-from genericpath import exists
 import hashlib
 import json
 import uuid
@@ -55,8 +54,9 @@ def register():
         password = request.form.get("password")
         tryUser = db.query(User).filter_by(email=email).first()
         if not tryUser:
-            newUser = User(email=email, password=hashlib.sha256(password.encode())
-                        .hexdigest())
+            newUser = User(email=email,
+                           password=hashlib.sha256(password.encode())
+                           .hexdigest())
             db.add(newUser)
             db.commit()
             message = "You have been registered"

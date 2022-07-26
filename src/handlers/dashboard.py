@@ -12,13 +12,14 @@ def dashboard():
     if request.method == "GET":
         if isLoggedIn():
             return render_template("dashboard.html",
-                                app_name=app_name,
-                                user=getCurrentUser(),
-                                posts=db.query(Post)
-                                .filter_by(deleted=False).order_by(Post.created_at).all())
+                                   app_name=app_name,
+                                   user=getCurrentUser(),
+                                   posts=db.query(Post)
+                                   .filter_by(deleted=False)
+                                   .order_by(Post.created_at).all())
         else:
             return redirectToLogin()
 
     elif request.method == "GET":
         return render_template("404.html", app_name=app_name,
-                           user=getCurrentUser())
+                               user=getCurrentUser())
