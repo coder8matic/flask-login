@@ -22,9 +22,9 @@ def postComments(post_id):
         print(getComments)
         return render_template("post_comments.html",
                                app_name=app_name,
+                               user=getCurrentUser(),
                                post=getPost,
-                               comments=getComments,
-                               user=getCurrentUser()) \
+                               comments=getComments) \
             if isLoggedIn() else redirectToLogin()
     elif request.method == "POST":
         comment = request.form.get('newComment')

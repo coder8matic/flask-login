@@ -11,7 +11,7 @@ post_handlers = Blueprint("post_handlers", __name__)
 @post_handlers.route('/new_post', methods=["GET", "POST"])
 def createPost():
     if request.method == "GET":
-        return render_template("post_new.html", app_name=app_name) \
+        return render_template("post_new.html", app_name=app_name, user=getCurrentUser()) \
             if isLoggedIn() else redirectToLogin()
     elif request.method == "POST":
         title = request.form.get('title')
@@ -31,7 +31,7 @@ def handlePost(post_id):
         if handlePost is None:
             return redirectToRoute("error.error404")   # redirect to 404
         else:
-            return render_template("post_edit.html", app_name=app_name,
+            return render_template("post_edit.html", app_name=app_name, user=getCurrentUser(),
                                    id=handlePost.id, title=handlePost.title,
                                    description=handlePost.description) \
                 if isLoggedIn() else redirectToLogin()
@@ -66,7 +66,7 @@ def handlePost(post_id):
 @post_handlers.route('/post/delete/<post_id>', methods=["POST", "GET"])
 def deletePost(post_id):
     if request.method == "GET":
-        return render_template("404.html", app_name=app_name,
+        return render_template("404.html", app_name=app_name, user=getCurrentUser(),
                            user=getCurrentUser())
 
     elif request.method == "POST":
