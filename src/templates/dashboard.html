@@ -4,19 +4,20 @@
     <div class="card-body bg-light">
         <div class="card-title">
             <div class="row">
-                <div class="col">Welcome to app, {{user.email}}!</div>
-                <div class="col d-grid gap-2 d-md-flex justify-content-md-end"><a class="btn btn-primary" href="{{ url_for('post_handlers.createPost') }}">+</a></div>
+                <div class="col">Welcome to app, {{ user.email }}!</div>
+                <div class="col d-grid gap-2 d-md-flex justify-content-md-end me-2"><a class="btn btn-primary" href="{{ url_for('post_handlers.createPost') }}">+</a></div>
             </div>
         </div>
         <div class="card-text">
             <table class="table table-hover">
                 <thead>
-                <tr>
-                    <td>ID</td>
-                    <td>Title</td>
-                    <td>Author</td>
-                    <td>Created at</td>
-                </tr>
+                    <tr>
+                        <td>ID</td>
+                        <td>Title</td>
+                        <td>Author</td>
+                        <td>Created at</td>
+                        <td></td>
+                    </tr>
                 </thead>
                 <tbody>
                 {% for post in posts %}
@@ -40,7 +41,6 @@
                 </tr>            
                 {% endfor %}
                 </tbody>
-            
             </table>
         </div>
     </div>
