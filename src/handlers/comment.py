@@ -5,6 +5,7 @@ from src.models.post import Post
 from src.models.settings import db
 from src.utils.app_name import app_name
 from src.utils.user_helper import getCurrentUser, isLoggedIn, redirectToLogin
+from src.utils.mail import sendEmail
 
 comment_handlers = Blueprint("comment_handlers", __name__)
 
@@ -29,8 +30,21 @@ def postComments(post_id):
     elif request.method == "POST":
         comment = request.form.get('newComment')
         author_id = getCurrentUser().id
+        author_email = getCurrentUser().email
 
         Comment.create(post_id=post_id, comment=comment, author_id=author_id)
+
+        # send notification email to author of post
+        post = db.query(Post).filter_by(id=post_id).first()
+        print(post)
+        print(post.__dict__)
+        email_to = post.author.email
+        email_subject = "Your post " + str(post.id) + ": " \
+                        + post.title + " has new comment."
+        email_body = "User " + author_email + " commented: " + comment
+
+        sendEmail(to=email_to, subject=email_subject, emailContent=email_body)
+
         getComments = db.query(Comment).filter_by(post_id=post_id) \
                                        .filter_by(deleted_at=None) \
                                        .order_by(Comment.created_at).all()

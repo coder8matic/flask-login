@@ -6,3 +6,5 @@ sqla-wrapper==4.200628
 uuid==1.30
 psycopg2-binary==2.9.3
 redis==4.3.4
+sendgrid==6.9.7
+python-dotenv==0.20.0
